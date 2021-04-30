@@ -25,7 +25,7 @@ if(isset($_POST['login'])){
                     $_SESSION['user'] = $user_id;
                     die(header('Location: dashboard.php'));
                 }else{
-                    array_push($error,"Password is correct");
+                    array_push($error,"Please check if your Email Password is correct");
                 }
                 
             }
