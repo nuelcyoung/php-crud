@@ -13,14 +13,21 @@ if(isset($_POST['login'])){
         array_push($error, "Password is Required");
     }
     if(empty($error)){
-        $query = 'SELECT * FROM users WHERE email = "$email" AND password = "$password"';
+        $query = "SELECT * FROM users WHERE email = '$email'";
         $run_query = mysqli_query($connection, $query);
-        if(mysqli_num_rows($run_query) == 1){
+        if($run_query==true){
             session_start();
             while($result = mysqli_fetch_assoc($run_query)){
-                $user_id = $result['id'];
-                $_SESSION['user'] = $user_id;
-                die(header('Location: dashboard.php'));
+                //check if password is correct
+                $passwordcorrect = password_verify($password, $result['password']);
+                if($passwordcorrect==true){
+                    $user_id = $result['id'];
+                    $_SESSION['user'] = $user_id;
+                    die(header('Location: dashboard.php'));
+                }else{
+                    array_push($error,"Password is correct");
+                }
+                
             }
         }else{
             array_push($error,"Login Failed please check if your Email or Password is correct");
@@ -52,11 +59,12 @@ if(isset($_POST['register'])){
         'password' =>$password,
         'fullname' =>$fullname,
     ];
-    $columns = implode(", ",array_keys($data));
-$escaped_values = array_map(array($con, 'real_escape_string'),array_values($data));
+    //implode arrays the insert
+    $columns = implode(", ",array_keys($data_array));
+$escaped_values = array_map(array($connection, 'real_escape_string'),array_values($data_array));
 $values  = implode("', '", $escaped_values);
 $sql = "INSERT INTO `users`($columns) VALUES ('$values')";
-$run_query = mysqli_query($connection, $query);
+$run_query = mysqli_query($connection, $sql);
 							if($run_query == true){
                                 array_push($error, "Registered Successfully");
 								die(header('Location: index.php'));

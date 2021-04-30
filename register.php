@@ -6,10 +6,8 @@
 <body>
 <h1>Register</h1>
 <form action="process.php" method="post">
-<input type="text" name="first_name" placeholder="Firstname">
-<input type="text" name="last_name" placeholder="Lastname">
-<input type="date" name="dob" placeholder="Date of Birth">
-<input type="text" name="user_name" placeholder="Username">
+<input type="text" name="email" placeholder="Email">
+<input type="text" name="fullname" placeholder="Full name">
 <input type="password" name="password" placeholder="Password">
 <input type="submit" name="register">
 </form>
