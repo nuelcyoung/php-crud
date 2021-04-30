@@ -62,8 +62,7 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
                 <tr>
 					<td> <?php echo $i++; ?></td>
 					<td><?php echo $result1['coursename']; ?></td>
-	  					<input type="hidden" name="id" value="<?php echo $result1['id']; ?>">
-					  <td><input type="submit" name="edit_course" value="Edit" class="btn btn-xs btn-primary" />|<a href="#" class="btn btn-xs btn-danger">Delete</a></td>
+					  <td><a href="editcourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-xs btn-primary">Edit</a>|<a href="deletecourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-xs btn-danger">Delete</a></td>
                 </tr>
 				<?php } ?>
 				</tbody>
