@@ -1,7 +1,6 @@
 <?php
-$user_name = $_POST['user_name'];
-$password = htmlspecialchar($_POST['password']);
-
+ob_start();
+require_once("process.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,7 +35,7 @@ $password = htmlspecialchar($_POST['password']);
             </button>
  
             <!-- Change "Your Site" to your site name -->
-            <a class="navbar-brand" href="index.php">Ekenny Zuri Task</a>
+            <a class="navbar-brand" href="index.php">Nuel Zuri Task</a>
         </div>
  
         <div class="navbar-collapse collapse">
@@ -46,44 +45,35 @@ $password = htmlspecialchar($_POST['password']);
                     <a href="index.php">Home</a>
                 </li>
             </ul>
- 
                 <ul class="nav navbar-nav navbar-right">
-        <li class='active'>
-            <a href="login.php">
-                <span class="glyphicon glyphicon-log-in"></span> Log In
-            </a>
-        </li>
-     
         <li >
             <a href="register.php">
                 <span class="glyphicon glyphicon-check"></span> Register
             </a>
         </li>
-      
     </ul>
-                 
         </div><!--/.nav-collapse -->
- 
     </div>
 </div>
 <div class="container">
+<br/>
+<br/>
+<br/>
+<br/>
     <!--<main role="main" class="container">-->
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <form>
+        <?php echo display_error();?>
+            <form class='form-signin' action='' method='post'>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" name="user_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <input type='submit' name='login' value='Login' class='btn btn-primary btn-success login_btn text-center' />
             </form>
             </div>
 

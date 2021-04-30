@@ -1,16 +1,31 @@
 <?php
+ob_start();
+require_once("connection.php");
+require_once("functions.php");
+$error=array();
 if(isset($_POST['login'])){
-    $user_name = $_POST['user_name'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $myfile = file_get_contents("files/user.json"); 
-    $json = json_decode($myfile, true);
-
-    foreach ($json as $val) {
-        if($val['user_name'] == $user_name 
-           && $val['password'] == $password) {
-            echo "Welcome ". $user_name;
+    if(empty($email)){
+        array_push($error, "Email is Required");
+    }
+    if(empty($password)){
+        array_push($error, "Password is Required");
+    }
+    if(empty($error)){
+        $query = 'SELECT * FROM users WHERE email = "$email" AND password = "$password"';
+        $run_query = mysqli_query($connection, $query);
+        if(mysqli_num_rows($run_query) == 1){
+            session_start();
+            while($result = mysqli_fetch_assoc($run_query)){
+                $user_id = $result['id'];
+                $_SESSION['user'] = $user_id;
+                die(header('Location: dashboard.php'));
+            }
+        }else{
+            array_push($error,"Login Failed please check if your Email or Password is correct");
         }
-    } 
+    }
 }
 if(isset($_POST['forgot'])){
     $user_name = $_POST['user_name'];
