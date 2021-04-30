@@ -4,8 +4,7 @@
 	$username = "root";
 	$password = "";
 	$database = "phpcrud";
-	//$port = "3306";
-	define('ROOTPATH', dirname(__FILE__));
+	//$port = "3306;
 	$connection = new mysqli($server,$username,$password,$database);
 	
 	if($connection->connect_error){
