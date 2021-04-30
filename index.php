@@ -22,7 +22,7 @@ require_once("process.php");
 
 
   <body>
-  <div class="navbar navbar-default navbar-static-top navbar-dark bg-dark" role="navigation">
+  <div class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" role="navigation">
     <div class="container-fluid">
  
         <div class="navbar-header">
@@ -38,21 +38,17 @@ require_once("process.php");
             <a class="navbar-brand" href="index.php">Nuel Zuri Task</a>
         </div>
  
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <!-- link to the "Cart" page, highlight if current page is cart.php -->
-                <li >
-                    <a href="index.php">Home</a>
-                </li>
-            </ul>
-                <ul class="nav navbar-nav navbar-right">
-        <li >
-            <a href="register.php">
-                <span class="glyphicon glyphicon-check"></span> Register
-            </a>
-        </li>
-    </ul>
-        </div><!--/.nav-collapse -->
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">Register</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
 </div>
 <div class="container">

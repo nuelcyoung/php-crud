@@ -4,8 +4,8 @@ require_once("connection.php");
 require_once("functions.php");
 $error=array();
 if(isset($_POST['login'])){
-    $email = htmlspecialchar($_POST['email']);
-    $password = htmlspecialchar($_POST['password']);
+    $email = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['password']);
     if(empty($email)){
         array_push($error, "Email is Required");
     }
@@ -43,24 +43,27 @@ if(isset($_POST['forgot'])){
 }
 
 if(isset($_POST['register'])){
-    $first_name =   $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $user_name = $_POST['user_name'];
-    $dob =  $_POST['dob'];
-    $password = $_POST['password'];
+    $email =   htmlspecialchars($_POST['email']);
+    $fullname = htmlspecialchars($_POST['fullname']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     //Data array to save
     $data_array=[
-        'first_name' =>$first_name,
-        'last_name' =>$last_name,
-        'user_name' =>$user_name,
-        'dob'=>$dob,
-        'password'=>$password
+        'email' =>$email,
+        'password' =>$password,
+        'fullname' =>$fullname,
     ];
-//     $myfile = fopen("files/user.json", "w");
-// fwrite($myfile, json_encode($data_array));
-// fclose($myfile);
-    file_put_contents("files/user.json",json_encode($data_array));
-    echo $first_name . $last_name . $dob . $user_name . $password;
+    $columns = implode(", ",array_keys($data));
+$escaped_values = array_map(array($con, 'real_escape_string'),array_values($data));
+$values  = implode("', '", $escaped_values);
+$sql = "INSERT INTO `users`($columns) VALUES ('$values')";
+$run_query = mysqli_query($connection, $query);
+							if($run_query == true){
+                                array_push($error, "Registered Successfully");
+								die(header('Location: index.php'));
+							}else{
+                                array_push($error, "Registered Successfully");
+							}
+
     
 }
 ?>
