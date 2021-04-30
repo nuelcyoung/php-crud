@@ -19,11 +19,11 @@ if(isset($_POST['login'])){
             session_start();
             while($result = mysqli_fetch_assoc($run_query)){
                 //check if password is correct
-                $passwordcorrect = password_verify($password, $result['password']);
+                $passwordcorrect = password_verify($password, $result["password"]);
                 if($passwordcorrect==true){
-                    $user_id = $result['id'];
-                    $_SESSION['user'] = $user_id;
-                    die(header('Location: dashboard.php'));
+                    $user_id = $result["id"];
+                    $_SESSION["user"] = $user_id;
+                    die(header("Location: dashboard.php"));
                 }else{
                     array_push($error,"Please check if your Email Password is correct");
                 }
@@ -35,18 +35,8 @@ if(isset($_POST['login'])){
     }
 }
 if(isset($_POST['forgot'])){
-    $user_name = $_POST['user_name'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $myfile = file_get_contents("files/user.json"); 
-    $json = json_decode($myfile, true);
-
-    foreach ($json as &$val) {
-        if($val['user_name'] == $user_name){
-            $val['password'] = $password;
-        }
-            echo "Updated ". $user_name;
-    }
-    file_put_contents("files/user.json",json_encode($json));
 }
 
 if(isset($_POST['register'])){
@@ -63,7 +53,7 @@ if(isset($_POST['register'])){
     $columns = implode(", ",array_keys($data_array));
 $escaped_values = array_map(array($connection, 'real_escape_string'),array_values($data_array));
 $values  = implode("', '", $escaped_values);
-$sql = "INSERT INTO `users`($columns) VALUES ('$values')";
+$sql = "INSERT INTO users($columns) VALUES ('$values')";
 $run_query = mysqli_query($connection, $sql);
 							if($run_query == true){
                                 array_push($error, "Registered Successfully");

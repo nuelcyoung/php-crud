@@ -75,6 +75,7 @@ require_once("process.php");
 
     <!--</main> /.container -->
 </div>
+<?php unset($_SESSION['error']);?>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
