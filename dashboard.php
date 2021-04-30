@@ -1,5 +1,7 @@
 <?php
 require_once("layout/header.php");
+require_once("functions.php");
+require_once("courseprocess.php");
 $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
 	$run_query = mysqli_query($connection, $query);
 	if(mysqli_num_rows($run_query) == 1){
@@ -8,7 +10,7 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
 			$user_fullname = ucwords($result['fullname']);
 		}
 	}
-?>
+	?>
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -20,12 +22,12 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
                   Dashboard <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <!--<li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="file"></span>
                   Orders
                 </a>
-              </li>
+              </li>-->
             </ul>
           </div>
         </nav>
@@ -34,16 +36,42 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Add Course</button>
+			  <a href="addcourse.php" class="btn btn-sm btn-outline-secondary">Add course</a>
               </div>
             </div>
           </div>
 <div class="container">
 <h1>Welcome <?php echo $user_fullname;?></h1>
         <p class="lead">you can perform CRUD Operations here</p>
+		<div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th width="10%">#</th>
+                  <th>Course</th>
+				  <th width="20%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+			  <?php
+			  $i=1;
+			  $coursename = array();
+			  $query1="SELECT c.coursename,c.id FROM `users` as u INNER JOIN course as c  ON c.user_id = u.id WHERE u.id='$user_id'";
+			  $run_query1 = $connection->query($query1);
+			  while($result1 = $run_query1->fetch_assoc()) { ?>
+                <tr>
+					<td> <?php echo $i++; ?></td>
+					<td><?php echo $result1['coursename']; ?></td>
+	  					<input type="hidden" name="id" value="<?php echo $result1['id']; ?>">
+					  <td><input type="submit" name="edit_course" value="Edit" class="btn btn-xs btn-primary" />|<a href="#" class="btn btn-xs btn-danger">Delete</a></td>
+                </tr>
+				<?php } ?>
+				</tbody>
+            </table>
+		</div>
 </div>
 </main>
 </div>
-    </div>
+    </div
 <?php require_once("layout/footer.php");?>
 </body>

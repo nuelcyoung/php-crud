@@ -40,28 +40,40 @@ if(isset($_POST['forgot'])){
 }
 
 if(isset($_POST['register'])){
-    $email =   htmlspecialchars($_POST['email']);
+    $email = htmlspecialchars($_POST['email']);
     $fullname = htmlspecialchars($_POST['fullname']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    //Data array to save
-    $data_array=[
-        'email' =>$email,
-        'password' =>$password,
-        'fullname' =>$fullname,
-    ];
-    //implode arrays the insert
-    $columns = implode(", ",array_keys($data_array));
-$escaped_values = array_map(array($connection, 'real_escape_string'),array_values($data_array));
-$values  = implode("', '", $escaped_values);
-$sql = "INSERT INTO users($columns) VALUES ('$values')";
-$run_query = mysqli_query($connection, $sql);
+    $password = $_POST['password'];
+    
+    if(empty($email)){
+        array_push($error, "Email is Required");
+    }
+    if(empty($password)){
+        array_push($error, "Password is Required");
+    }
+    if(empty($fullname)){
+        array_push($error, "Fullname is Required");
+    }
+        if(empty($error)){
+            $hashedpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            //Data array to save
+            $data_array=[
+                'email' =>$email,
+                'password' =>$hashedpassword,
+                'fullname' =>$fullname,
+            ];
+            //implode arrays the insert
+                    $columns = implode(", ",array_keys($data_array));
+                $escaped_values = array_map(array($connection, 'real_escape_string'),array_values($data_array));
+                $values  = implode("', '", $escaped_values);
+                $sql = "INSERT INTO users($columns) VALUES ('$values')";
+                $run_query = mysqli_query($connection, $sql);
 							if($run_query == true){
                                 array_push($error, "Registered Successfully");
 								die(header('Location: index.php'));
 							}else{
                                 array_push($error, "Registered Successfully");
-							}
+							    }
 
-    
+        }
 }
 ?>
