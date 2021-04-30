@@ -4,8 +4,8 @@ require_once("connection.php");
 require_once("functions.php");
 $error=array();
 if(isset($_POST['login'])){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = htmlspecialchar($_POST['email']);
+    $password = htmlspecialchar($_POST['password']);
     if(empty($email)){
         array_push($error, "Email is Required");
     }
