@@ -19,6 +19,7 @@ if(isset($_POST['add_course'])){
                     $columns = implode(", ",array_keys($data_array));
                 $escaped_values = array_map(array($connection, 'real_escape_string'),array_values($data_array));
                 $values  = implode("', '", $escaped_values);
+                
                 $sql = "INSERT INTO course($columns) VALUES ('$values')";
                 $run_query = mysqli_query($connection, $sql);
 							if($run_query == true){
@@ -26,6 +27,34 @@ if(isset($_POST['add_course'])){
 								die(header('Location: dashboard.php'));
 							}else{
                                 array_push($error, "Error adding Course");
+							    }
+
+        }
+}
+if(isset($_POST['edit_course'])){
+    $user_id=$_SESSION['user'];
+    $coursename = htmlspecialchars($_POST['coursename']);
+    $id=$_POST['id'];
+    if(empty($coursename)){
+        array_push($error, "Course name is Required");
+    }
+        if(empty($error)){
+            //Data array to save
+            $data_array=[
+                'coursename' =>$coursename,
+            ];
+            //implode arrays the insert
+                    $columns = implode(", ",array_keys($data_array));
+                $escaped_values = array_map(array($connection, 'real_escape_string'),array_values($data_array));
+                $values  = implode("', '", $escaped_values);
+                //$sql = "UPDATE MyGuests SET lastname='Doe' WHERE id=2";
+                $sql = "UPDATE course SET $columns='$values' where id='$id'";
+                $run_query = mysqli_query($connection, $sql);
+							if($run_query == true){
+                                array_push($error, "Added Successfully");
+								die(header('Location: dashboard.php'));
+							}else{
+                                array_push($error, "Error updating Course");
 							    }
 
         }

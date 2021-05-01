@@ -55,14 +55,13 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
               <tbody>
 			  <?php
 			  $i=1;
-			  $coursename = array();
 			  $query1="SELECT c.coursename,c.id FROM `users` as u INNER JOIN course as c  ON c.user_id = u.id WHERE u.id='$user_id'";
 			  $run_query1 = $connection->query($query1);
 			  while($result1 = $run_query1->fetch_assoc()) { ?>
                 <tr>
 					<td> <?php echo $i++; ?></td>
 					<td><?php echo $result1['coursename']; ?></td>
-					  <td><a href="editcourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-xs btn-primary">Edit</a>|<a href="deletecourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-xs btn-danger">Delete</a></td>
+					  <td><a href="editcourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-sm btn-primary">Edit</a>|<a href="deletecourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-sm btn-danger">Delete</a></td>
                 </tr>
 				<?php } ?>
 				</tbody>
