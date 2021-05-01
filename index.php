@@ -71,6 +71,7 @@ require_once("process.php");
                 </div>
                 <input type='submit' name='login' value='Login' class='btn btn-primary btn-success login_btn text-center' />
             </form>
+            <a href="forgot.php">Forgot Password?</a>
             </div>
 
     <!--</main> /.container -->
