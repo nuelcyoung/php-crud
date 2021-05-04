@@ -2,6 +2,7 @@
 require_once("layout/header.php");
 require_once("functions.php");
 require_once("courseprocess.php");
+require_once("layout/message.php");
 $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
 	$run_query = mysqli_query($connection, $query);
 	if(mysqli_num_rows($run_query) == 1){
@@ -12,6 +13,7 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
 	}
 	?>
     <div class="container-fluid">
+    
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
@@ -32,6 +34,14 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
           </div>
         </nav>
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    
+      <?php
+       if(!empty($error)){
+      echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
+       echo $error; echo '</div>';
+    }
+    ?>
+    
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
@@ -61,7 +71,7 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
                 <tr>
 					<td> <?php echo $i++; ?></td>
 					<td><?php echo $result1['coursename']; ?></td>
-					  <td><a href="editcourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-sm btn-primary">Edit</a>|<a href="deletecourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-sm btn-danger">Delete</a></td>
+					  <td><a href="editcourse.php?id=<?php echo $result1['id']; ?>" class="btn btn-sm btn-primary">Edit</a>|<a href="courseprocess.php?delete&id=<?php echo $result1['id']; ?>" class="btn btn-sm btn-danger">Delete</a></td>
                 </tr>
 				<?php } ?>
 				</tbody>
@@ -72,4 +82,3 @@ $query = " SELECT * FROM users WHERE id = '{$_SESSION['user']}'";
 </div>
     </div
 <?php require_once("layout/footer.php");?>
-</body>

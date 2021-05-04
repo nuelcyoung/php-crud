@@ -1,3 +1,3 @@
-# php-crud
-This performs basic CRUD operations
-With MySQL as the database engine
+# phpauthentication
+ZuriBoard training
+on PHP authentication
